@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>MakerPulse Setup</title>
+  <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 48px auto; padding: 0 20px; color: #111; }
+    .browser-warning { background:#fff4e5; border:1px solid #f0c36d; border-radius:8px; padding:12px 16px; font-size:14px; margin-bottom: 24px; }
+    esp-web-install-button { display:block; margin: 24px 0; }
+    button { background:#38bdf8; border:none; color:#001018; padding:13px 18px; border-radius:12px; font-weight:800; cursor:pointer; font-size:15px; }
+  </style>
+</head>
+<body>
+  <h1>Set up your MakerPulse</h1>
+  <div class="browser-warning">
+    This flashing tool uses WebSerial, which only works in <strong>Chrome or Edge on desktop</strong>
+    (Windows, macOS, Linux) &mdash; not Firefox, Safari, or any mobile browser.
+  </div>
+  <p>Plug in your MakerPulse via USB, then click the button below. After flashing completes,
+     a WiFi setup dialog appears automatically &mdash; no Arduino IDE required.</p>
+
+  <esp-web-install-button manifest="manifest.json">
+    <button slot="activate">Connect and Flash MakerPulse</button>
+    <span slot="unsupported">Your browser does not support Web Serial. Please use Chrome or Edge on desktop.</span>
+    <span slot="not-allowed">This site must be served over HTTPS to flash devices.</span>
+  </esp-web-install-button>
+
+  <p>Already flashed and just need to reconnect to a new WiFi network? Click the button
+     above again &mdash; it detects your device and offers WiFi setup directly, no re-flash needed.</p>
+</body>
+</html>
