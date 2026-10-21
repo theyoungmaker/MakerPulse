@@ -22,7 +22,7 @@
 #include <math.h>
 
 #define FIRMWARE_VERSION "1.0.0"
-#define SETUP_SITE_URL "yourusername.github.io/MakerPulse" // TODO: update once GitHub Pages is live
+#define SETUP_SITE_URL "theyoungmaker.github.io/MakerPulse"
 
 // =========================================================
 // WIFI
