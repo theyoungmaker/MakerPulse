@@ -44,10 +44,6 @@ from branch → `main` / `/docs`). Pure static files, no build step.
 
 ## Notes
 
-- Renaming the Preferences namespace from `deskbuddy` to `makerpulse` means
-  any device previously flashed with older firmware will have its stored
-  settings reset once reflashed (Preferences namespaces are isolated
-  storage; nothing migrates automatically).
 - Bus arrivals use a shared fallback LTA DataMall AccountKey out of the box.
   For reliable results, request your own free key at
   https://datamall.lta.gov.sg/content/datamall/en/request-for-api.html and
