@@ -3,6 +3,9 @@
 An ESP32 "Cheap Yellow Display" (ESP32-2432S028) desk gadget — weather, bus
 arrivals, focus timer, and status, with a touchscreen UI.
 
+Built as part of [The Young Maker](https://theyoungmaker.com)'s
+[3D + micro-computing workshops](https://theyoungmaker.com/3dlab/).
+
 ## Setup (end users)
 
 No Arduino IDE needed. Visit the MakerPulse setup site in Chrome or Edge on
