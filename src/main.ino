@@ -3311,7 +3311,7 @@ void handleRoot() {
 
   page += "<button type='submit'>Save to MakerPulse</button>";
   page += "</div></div></form>";
-  page += "<div class='ym-footer'>Built by <a href='https://theyoungmaker.com' target='_blank' rel='noopener'>The Young Maker</a></div>";
+  page += "<div class='ym-footer'>Built by <a href='https://theyoungmaker.com' target='_blank' rel='noopener'>The Young Maker</a> &middot; <a href='https://theyoungmaker.com/3dlab/' target='_blank' rel='noopener'>3D Lab</a></div>";
   page += "<script>";
   page += "var colorNames={accent:{standard:'Standard',ice:'Ice',white:'White',cyan:'Cyan',mint:'Mint',green:'Green',blue:'Blue',purple:'Purple',pink:'Pink',orange:'Orange',amber:'Amber',red:'Red'},text:{standard:'Standard',ice:'Ice',white:'White',cyan:'Cyan',mint:'Mint',green:'Green',blue:'Blue',purple:'Purple',pink:'Pink',orange:'Orange',amber:'Amber',red:'Red'},bg:{slate:'Slate',deep:'Deep black',nordic:'Nordic blue',forest:'Forest',coffee:'Coffee',soft:'Soft dark',midnight:'Midnight',graphite:'Graphite',garnet:'Garnet',ochre:'Ochre'}};";
   page += "var panelStorageKey='makerpulse-panel-state-v1';";
