@@ -4,30 +4,95 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>MakerPulse Setup</title>
+  <link rel="icon" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PScwIDAgMTAwIDEzMCcgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJz48cGF0aCBkPSdNMzggNDZhMTcgMTcgMCAwIDEgMjQgMCcgZmlsbD0nbm9uZScgc3Ryb2tlPScjZmU5ODA0JyBzdHJva2Utd2lkdGg9JzYnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcvPjxwYXRoIGQ9J00yNyAzNGEzMyAzMyAwIDAgMSA0NiAwJyBmaWxsPSdub25lJyBzdHJva2U9JyNmZTk4MDQnIHN0cm9rZS13aWR0aD0nNicgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJy8+PHBhdGggZD0nTTE2IDIyYTUzIDUzIDAgMCAxIDY4IDAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2ZlOTgwNCcgc3Ryb2tlLXdpZHRoPSc2JyBzdHJva2UtbGluZWNhcD0ncm91bmQnLz48Y2lyY2xlIGN4PSc1MCcgY3k9JzYyJyByPSc5JyBmaWxsPScjMjYyMjIwJy8+PHBhdGggZD0nTTI3IDg2cTIzIDIwIDQ2IDAnIGZpbGw9J25vbmUnIHN0cm9rZT0nIzI2MjIyMCcgc3Ryb2tlLXdpZHRoPSc3JyBzdHJva2UtbGluZWNhcD0ncm91bmQnLz48cGF0aCBkPSdNNTAgODZMMzAgMTI0JyBzdHJva2U9JyMyNjIyMjAnIHN0cm9rZS13aWR0aD0nNycgc3Ryb2tlLWxpbmVjYXA9J3JvdW5kJy8+PHBhdGggZD0nTTUwIDg2TDcwIDEyNCcgc3Ryb2tlPScjMjYyMjIwJyBzdHJva2Utd2lkdGg9JzcnIHN0cm9rZS1saW5lY2FwPSdyb3VuZCcvPjwvc3ZnPg==">
   <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
   <style>
-    body { font-family: system-ui, sans-serif; max-width: 640px; margin: 48px auto; padding: 0 20px; color: #111; }
-    .browser-warning { background:#fff4e5; border:1px solid #f0c36d; border-radius:8px; padding:12px 16px; font-size:14px; margin-bottom: 24px; }
-    esp-web-install-button { display:block; margin: 24px 0; }
-    button { background:#38bdf8; border:none; color:#001018; padding:13px 18px; border-radius:12px; font-weight:800; cursor:pointer; font-size:15px; }
+    :root{color-scheme:light;}
+    body{margin:0;background:linear-gradient(180deg,#fff4cd 0%,#fffaf0 32%,#ffffff 100%);color:#3a3a3a;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;}
+    .wrap{max-width:640px;margin:0 auto;padding:48px 20px 56px;}
+    a{color:#b9830a;}
+    .brand{display:flex;align-items:center;gap:14px;margin-bottom:28px;}
+    .brand svg{width:44px;height:57px;flex-shrink:0;}
+    .brand-titles{display:flex;flex-direction:column;}
+    .brand-by{font-size:12px;font-weight:700;color:#c79a2e;letter-spacing:.05em;text-transform:uppercase;}
+    h1{font-size:28px;margin:0;color:#262220;}
+    .lede{font-size:15px;color:#54595f;line-height:1.55;margin:0 0 28px;}
+    .browser-warning{background:#fff7e0;border:1px solid #ffdf94;border-radius:14px;padding:14px 18px;font-size:14px;color:#8a6d1f;margin-bottom:28px;}
+    .browser-warning strong{color:#6b5215;}
+    .steps{display:grid;gap:14px;margin-bottom:28px;}
+    .step{display:flex;gap:14px;align-items:flex-start;background:#ffffff;border:1px solid #f0e6cf;border-radius:16px;padding:16px 18px;box-shadow:0 1px 2px rgba(0,0,0,.04);}
+    .step-num{flex-shrink:0;width:28px;height:28px;border-radius:999px;background:#61ce70;color:#0f2e14;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;}
+    .step-body h3{margin:0 0 4px;font-size:15px;color:#262220;}
+    .step-body p{margin:0;font-size:13px;color:#7a7a7a;line-height:1.5;}
+    esp-web-install-button{display:block;margin:28px 0;}
+    button{background:#ffb607;border:none;color:#241b00;padding:14px 20px;border-radius:12px;font-weight:800;cursor:pointer;font-size:15px;width:100%;}
+    button:hover{background:#e6a400;}
+    .reconnect-note{font-size:13px;color:#7a7a7a;line-height:1.5;margin-bottom:8px;}
+    .ym-footer{margin-top:36px;text-align:center;font-size:12px;color:#9a9488;}
+    .ym-footer a{color:#c79a2e;font-weight:700;text-decoration:none;}
+    .ym-footer a:hover{text-decoration:underline;}
   </style>
 </head>
 <body>
-  <h1>Set up your MakerPulse</h1>
-  <div class="browser-warning">
-    This flashing tool uses WebSerial, which only works in <strong>Chrome or Edge on desktop</strong>
-    (Windows, macOS, Linux) &mdash; not Firefox, Safari, or any mobile browser.
+  <div class="wrap">
+    <div class="brand">
+      <svg viewBox="0 0 100 130" xmlns="http://www.w3.org/2000/svg">
+        <path d="M38 46a17 17 0 0 1 24 0" fill="none" stroke="#fe9804" stroke-width="6" stroke-linecap="round"/>
+        <path d="M27 34a33 33 0 0 1 46 0" fill="none" stroke="#fe9804" stroke-width="6" stroke-linecap="round"/>
+        <path d="M16 22a53 53 0 0 1 68 0" fill="none" stroke="#fe9804" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="50" cy="62" r="9" fill="#262220"/>
+        <path d="M27 86q23 20 46 0" fill="none" stroke="#262220" stroke-width="7" stroke-linecap="round"/>
+        <path d="M50 86L30 124" stroke="#262220" stroke-width="7" stroke-linecap="round"/>
+        <path d="M50 86L70 124" stroke="#262220" stroke-width="7" stroke-linecap="round"/>
+      </svg>
+      <div class="brand-titles">
+        <h1>MakerPulse</h1>
+        <span class="brand-by">by The Young Maker</span>
+      </div>
+    </div>
+
+    <p class="lede">Set up your MakerPulse "Cheap Yellow Display" desk companion straight from this
+       page &mdash; no Arduino IDE, no cables to a laptop full of toolchains, just a browser.</p>
+
+    <div class="browser-warning">
+      This flashing tool uses WebSerial, which only works in <strong>Chrome or Edge on desktop</strong>
+      (Windows, macOS, Linux) &mdash; not Firefox, Safari, or any mobile browser.
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <h3>Plug it in</h3>
+          <p>Connect your MakerPulse to this computer with a USB cable.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <h3>Connect and flash</h3>
+          <p>Click the button below, pick the device's serial port, and wait for flashing to finish.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <h3>Join your WiFi</h3>
+          <p>A WiFi setup dialog appears automatically right after flashing &mdash; no re-flash needed if you ever switch networks.</p>
+        </div>
+      </div>
+    </div>
+
+    <esp-web-install-button manifest="manifest.json">
+      <button slot="activate">Connect and Flash MakerPulse</button>
+      <span slot="unsupported">Your browser does not support Web Serial. Please use Chrome or Edge on desktop.</span>
+      <span slot="not-allowed">This site must be served over HTTPS to flash devices.</span>
+    </esp-web-install-button>
+
+    <p class="reconnect-note">Already flashed and just need to reconnect to a new WiFi network? Click the
+       button above again &mdash; it detects your device and offers WiFi setup directly, no re-flash needed.</p>
+
+    <div class="ym-footer">Built by <a href="https://theyoungmaker.com" target="_blank" rel="noopener">The Young Maker</a></div>
   </div>
-  <p>Plug in your MakerPulse via USB, then click the button below. After flashing completes,
-     a WiFi setup dialog appears automatically &mdash; no Arduino IDE required.</p>
-
-  <esp-web-install-button manifest="manifest.json">
-    <button slot="activate">Connect and Flash MakerPulse</button>
-    <span slot="unsupported">Your browser does not support Web Serial. Please use Chrome or Edge on desktop.</span>
-    <span slot="not-allowed">This site must be served over HTTPS to flash devices.</span>
-  </esp-web-install-button>
-
-  <p>Already flashed and just need to reconnect to a new WiFi network? Click the button
-     above again &mdash; it detects your device and offers WiFi setup directly, no re-flash needed.</p>
 </body>
 </html>
