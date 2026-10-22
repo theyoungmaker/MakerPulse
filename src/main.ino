@@ -24,6 +24,11 @@
 #define FIRMWARE_VERSION "1.0.0"
 #define SETUP_SITE_URL "theyoungmaker.github.io/MakerPulse"
 
+// The Young Maker brand mark: a maker figure under three Wi-Fi arcs, reused
+// as-is in the settings page header/footer. Colors sampled from their real
+// logo asset and live site (theyoungmaker.com) rather than invented here.
+#define YM_LOGO_SVG "<svg viewBox='0 0 100 130' xmlns='http://www.w3.org/2000/svg'><path d='M38 46a17 17 0 0 1 24 0' fill='none' stroke='#fe9804' stroke-width='6' stroke-linecap='round'/><path d='M27 34a33 33 0 0 1 46 0' fill='none' stroke='#fe9804' stroke-width='6' stroke-linecap='round'/><path d='M16 22a53 53 0 0 1 68 0' fill='none' stroke='#fe9804' stroke-width='6' stroke-linecap='round'/><circle cx='50' cy='62' r='9' fill='#262220'/><path d='M27 86q23 20 46 0' fill='none' stroke='#262220' stroke-width='7' stroke-linecap='round'/><path d='M50 86L30 124' stroke='#262220' stroke-width='7' stroke-linecap='round'/><path d='M50 86L70 124' stroke='#262220' stroke-width='7' stroke-linecap='round'/></svg>"
+
 // =========================================================
 // WIFI
 // =========================================================
@@ -3093,56 +3098,65 @@ void handleRoot() {
   page += "<meta name='viewport' content='width=device-width,initial-scale=1'>";
   page += "<title>MakerPulse</title>";
   page += "<style>";
-  page += ":root{color-scheme:dark;}";
-  page += "body{margin:0;background:linear-gradient(180deg,#0b1018 0%,#111827 100%);color:#edf2f7;font-family:system-ui,sans-serif;}";
+  page += ":root{color-scheme:light;}";
+  page += "body{margin:0;background:linear-gradient(180deg,#fff4cd 0%,#fffaf0 36%,#ffffff 100%);color:#3a3a3a;font-family:system-ui,sans-serif;}";
+  page += "a{color:#b9830a;}";
   page += ".wrap{max-width:980px;margin:0 auto;padding:28px 16px 36px;}";
-  page += ".hero{margin-bottom:18px;padding:18px 20px;border:1px solid #243244;border-radius:20px;background:linear-gradient(135deg,#111927 0%,#172235 100%);box-shadow:0 10px 30px rgba(0,0,0,.22);}";
-  page += ".hero h1{font-size:30px;margin:0 0 8px 0;}";
-  page += ".hero p{margin:0;color:#a9b7c9;font-size:14px;}";
-  page += ".ip{display:inline-block;margin-top:14px;padding:8px 12px;border-radius:999px;background:#0b1220;border:1px solid #334155;color:#dbe7f5;font-size:13px;}";
+  page += ".hero{margin-bottom:18px;padding:18px 20px;border:1px solid #ffe3a3;border-radius:20px;background:linear-gradient(135deg,#fff8e6 0%,#ffffff 100%);box-shadow:0 10px 30px rgba(255,182,7,.15);}";
+  page += ".hero-brand{display:flex;align-items:center;gap:14px;margin-bottom:10px;}";
+  page += ".hero-brand svg{width:40px;height:52px;flex-shrink:0;}";
+  page += ".hero-titles{display:flex;flex-direction:column;}";
+  page += ".hero-by{font-size:12px;font-weight:700;color:#c79a2e;letter-spacing:.04em;text-transform:uppercase;}";
+  page += ".hero h1{font-size:30px;margin:0;color:#262220;}";
+  page += ".hero p{margin:0;color:#7a7a7a;font-size:14px;}";
+  page += ".ip{display:inline-block;margin-top:14px;padding:8px 12px;border-radius:999px;background:#fff7e0;border:1px solid #ffdf94;color:#8a6d1f;font-size:13px;}";
   page += ".layout{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:start;}";
   page += ".stack{display:grid;gap:16px;}";
-  page += ".panel{background:#171b22;border:1px solid #2d3748;border-radius:18px;padding:18px;margin:0;}";
-  page += ".panel-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;background:none;border:none;color:#edf2f7;padding:0;margin:0;cursor:pointer;text-align:left;}";
-  page += ".panel-toggle:hover{color:#ffffff;}";
+  page += ".panel{background:#ffffff;border:1px solid #f0e6cf;border-radius:18px;padding:18px;margin:0;box-shadow:0 1px 2px rgba(0,0,0,.04);}";
+  page += ".panel-toggle{width:100%;display:flex;align-items:center;justify-content:space-between;gap:12px;background:none;border:none;color:#262220;padding:0;margin:0;cursor:pointer;text-align:left;}";
+  page += ".panel-toggle:hover{color:#000000;}";
   page += ".panel-toggle h2{flex:1;}";
-  page += ".panel-chevron{font-size:18px;color:#8ea3ba;transition:transform .18s ease;}";
+  page += ".panel-chevron{font-size:18px;color:#c79a2e;transition:transform .18s ease;}";
   page += ".panel.collapsed .panel-chevron{transform:rotate(-90deg);}";
   page += ".panel-body{margin-top:12px;}";
   page += ".panel.collapsed .panel-body{display:none;}";
   page += ".panel h2{margin:0 0 6px 0;font-size:18px;}";
-  page += ".panel p{margin:0 0 14px 0;color:#94a3b8;font-size:13px;line-height:1.45;}";
+  page += ".panel p{margin:0 0 14px 0;color:#7a7a7a;font-size:13px;line-height:1.45;}";
   page += ".grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}";
   page += ".grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}";
-  page += ".label{display:block;font-size:13px;margin:0 0 8px 0;color:#a0aec0;font-weight:600;}";
-  page += "input,select{width:100%;border-radius:12px;border:1px solid #334155;background:#0b1220;color:#edf2f7;padding:12px;box-sizing:border-box;font:inherit;}";
-  page += "button{margin-top:18px;background:#38bdf8;border:none;color:#001018;padding:13px 18px;border-radius:12px;font-weight:800;cursor:pointer;font:inherit;}";
-  page += ".muted{font-size:13px;color:#94a3b8;line-height:1.45;}";
-  page += ".footer-note{margin-top:10px;font-size:12px;color:#7f92a8;}";
-  page += ".settings-block{margin-top:18px;padding-top:16px;border-top:1px solid #2b3545;}";
+  page += ".label{display:block;font-size:13px;margin:0 0 8px 0;color:#54595f;font-weight:600;}";
+  page += "input,select{width:100%;border-radius:12px;border:1px solid #e7decb;background:#fffdf8;color:#262220;padding:12px;box-sizing:border-box;font:inherit;}";
+  page += "button{margin-top:18px;background:#ffb607;border:none;color:#241b00;padding:13px 18px;border-radius:12px;font-weight:800;cursor:pointer;font:inherit;}";
+  page += "button:hover{background:#e6a400;}";
+  page += ".muted{font-size:13px;color:#7a7a7a;line-height:1.45;}";
+  page += ".footer-note{margin-top:10px;font-size:12px;color:#9a9488;}";
+  page += ".settings-block{margin-top:18px;padding-top:16px;border-top:1px solid #f0e6cf;}";
   page += ".settings-block:first-of-type{margin-top:0;padding-top:0;border-top:none;}";
-  page += ".settings-title{display:block;margin:0 0 6px 0;font-size:14px;font-weight:700;color:#edf2f7;letter-spacing:.02em;}";
-  page += ".settings-desc{margin:0 0 12px 0;font-size:12px;color:#8ea3ba;line-height:1.45;}";
+  page += ".settings-title{display:block;margin:0 0 6px 0;font-size:14px;font-weight:700;color:#262220;letter-spacing:.02em;}";
+  page += ".settings-desc{margin:0 0 12px 0;font-size:12px;color:#7a7a7a;line-height:1.45;}";
   page += ".color-stack{display:grid;gap:12px;}";
   page += ".color-row{display:grid;grid-template-columns:120px 1fr;gap:12px;align-items:center;}";
   page += ".color-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;}";
-  page += ".color-meta .label{margin:0;color:#dbe7f5;}";
-  page += ".color-value{font-size:12px;color:#8ea3ba;white-space:nowrap;}";
+  page += ".color-meta .label{margin:0;color:#262220;}";
+  page += ".color-value{font-size:12px;color:#7a7a7a;white-space:nowrap;}";
   page += ".swatch-row{display:flex;flex-wrap:wrap;gap:8px;}";
-  page += ".swatch{width:22px;height:22px;border-radius:999px;border:1px solid rgba(255,255,255,.18);cursor:pointer;position:relative;box-sizing:border-box;}";
+  page += ".swatch{width:22px;height:22px;border-radius:999px;border:1px solid rgba(0,0,0,.15);cursor:pointer;position:relative;box-sizing:border-box;}";
   page += ".swatch input{display:none;}";
-  page += ".swatch.active{box-shadow:0 0 0 2px #67e8f9, 0 0 0 5px rgba(103,232,249,.18);}";
+  page += ".swatch.active{box-shadow:0 0 0 2px #61ce70, 0 0 0 5px rgba(97,206,112,.18);}";
   page += ".swatch.active::after{content:'';position:absolute;inset:5px;border-radius:999px;border:1px solid rgba(0,16,24,.45);}";
   page += ".timer-slot-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px;}";
-  page += ".timer-slot{border:1px solid #334155;border-radius:12px;background:#0b1220;padding:10px 10px 12px 10px;}";
-  page += ".timer-slot-head{font-size:12px;color:#8ea3ba;margin-bottom:8px;font-weight:600;}";
+  page += ".timer-slot{border:1px solid #e7decb;border-radius:12px;background:#fffdf8;padding:10px 10px 12px 10px;}";
+  page += ".timer-slot-head{font-size:12px;color:#7a7a7a;margin-bottom:8px;font-weight:600;}";
   page += ".timer-slot-input{display:flex;align-items:center;gap:8px;}";
   page += ".timer-slot input{padding:10px 12px;text-align:center;font-weight:700;}";
-  page += ".timer-unit{font-size:12px;color:#8ea3ba;white-space:nowrap;}";
+  page += ".timer-unit{font-size:12px;color:#7a7a7a;white-space:nowrap;}";
+  page += ".ym-footer{margin-top:22px;text-align:center;font-size:12px;color:#9a9488;}";
+  page += ".ym-footer a{color:#c79a2e;font-weight:700;text-decoration:none;}";
+  page += ".ym-footer a:hover{text-decoration:underline;}";
   page += "@media(max-width:820px){.layout{grid-template-columns:1fr;}.grid,.grid-3,.timer-slot-grid{grid-template-columns:1fr;}.color-row{grid-template-columns:1fr;}}";
   page += "</style></head><body><div class='wrap'>";
   page += "<div class='hero'>";
-  page += "<h1>MakerPulse</h1>";
+  page += "<div class='hero-brand'>" YM_LOGO_SVG "<div class='hero-titles'><h1>MakerPulse</h1><span class='hero-by'>by The Young Maker</span></div></div>";
   page += "<p>Shape MakerPulse into your own desk companion with widgets, notes, colors, and smart daily tools.</p>";
   page += "<div class='ip'>ESP IP: ";
   page += WiFi.localIP().toString();
@@ -3246,7 +3260,7 @@ void handleRoot() {
     page += "<div class='timer-slot'><div class='timer-slot-head'>Slot " + String(i + 1) + "</div><div class='timer-slot-input'><input type='number' min='1' max='180' name='timer" + String(i) + "' value='" + String(timerPresetMin[i]) + "'><span class='timer-unit'>min</span></div></div>";
   }
   page += "</div>";
-  page += "<div style='margin-top:14px;'><span class='settings-title'>Alert behavior</span><label style='display:flex;align-items:center;gap:10px;color:#edf2f7;'><input type='checkbox' name='flashMode' value='1'" + String(flashMode ? " checked" : "") + " style='width:auto;'>Flash screen when timer ends</label></div></div>";
+  page += "<div style='margin-top:14px;'><span class='settings-title'>Alert behavior</span><label style='display:flex;align-items:center;gap:10px;color:#262220;'><input type='checkbox' name='flashMode' value='1'" + String(flashMode ? " checked" : "") + " style='width:auto;'>Flash screen when timer ends</label></div></div>";
   page += "<div class='settings-block'><span class='settings-title'>Location</span><div class='settings-desc'>Used for weather data and sun times.</div><div class='grid-3'>";
   page += "<div><label class='label'>Location name</label><input name='locname' value='" + htmlEscape(locationName) + "'></div>";
   page += "<div><label class='label'>Latitude</label><input name='lat' value='" + String(LAT, 6) + "'></div>";
@@ -3297,6 +3311,7 @@ void handleRoot() {
 
   page += "<button type='submit'>Save to MakerPulse</button>";
   page += "</div></div></form>";
+  page += "<div class='ym-footer'>Built by <a href='https://theyoungmaker.com' target='_blank' rel='noopener'>The Young Maker</a></div>";
   page += "<script>";
   page += "var colorNames={accent:{standard:'Standard',ice:'Ice',white:'White',cyan:'Cyan',mint:'Mint',green:'Green',blue:'Blue',purple:'Purple',pink:'Pink',orange:'Orange',amber:'Amber',red:'Red'},text:{standard:'Standard',ice:'Ice',white:'White',cyan:'Cyan',mint:'Mint',green:'Green',blue:'Blue',purple:'Purple',pink:'Pink',orange:'Orange',amber:'Amber',red:'Red'},bg:{slate:'Slate',deep:'Deep black',nordic:'Nordic blue',forest:'Forest',coffee:'Coffee',soft:'Soft dark',midnight:'Midnight',graphite:'Graphite',garnet:'Garnet',ochre:'Ochre'}};";
   page += "var panelStorageKey='makerpulse-panel-state-v1';";
