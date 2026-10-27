@@ -18,21 +18,9 @@
 #define TOUCH_CS  33
 #define TOUCH_IRQ 36
 
-#define FIRMWARE_VERSION "1.0.0"
-
-#define SETUP_SITE_URL "theyoungmaker.github.io/MakerPulse"
-
-#define YM_LOGO_SVG "<svg viewBox='0 0 100 130' xmlns='http://www.w3.org/2000/svg'><path d='M38 46a17 17 0 0 1 24 0' fill='none' stroke='#fe9804' stroke-width='6' stroke-linecap='round'/><path d='M27 34a33 33 0 0 1 46 0' fill='none' stroke='#fe9804' stroke-width='6' stroke-linecap='round'/><path d='M16 22a53 53 0 0 1 68 0' fill='none' stroke='#fe9804' stroke-width='6' stroke-linecap='round'/><circle cx='50' cy='62' r='9' fill='#262220'/><path d='M27 86q23 20 46 0' fill='none' stroke='#262220' stroke-width='7' stroke-linecap='round'/><path d='M50 86L30 124' stroke='#262220' stroke-width='7' stroke-linecap='round'/><path d='M50 86L70 124' stroke='#262220' stroke-width='7' stroke-linecap='round'/></svg>"
-
-
-
 const int ROT = 2;
 
 const bool INV = false;
-#define TOUCH_CS  33
-
-#define TOUCH_IRQ 36
-
 
 static const int T_SCK  = 25;
 
