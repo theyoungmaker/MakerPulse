@@ -93,6 +93,13 @@
        button above again &mdash; it detects your device and offers WiFi setup directly, no re-flash needed.</p>
 
     <div class="ym-footer">Built by <a href="https://theyoungmaker.com" target="_blank" rel="noopener">The Young Maker</a> &middot; <a href="https://theyoungmaker.com/3dlab/" target="_blank" rel="noopener">3D Lab</a></div>
+    <div class="ym-footer" id="latest-version">Latest firmware: checking&hellip;</div>
   </div>
+  <script>
+    fetch('manifest.json')
+      .then(function (r) { return r.json(); })
+      .then(function (m) { document.getElementById('latest-version').textContent = 'Latest firmware: v' + m.version; })
+      .catch(function () { document.getElementById('latest-version').textContent = ''; });
+  </script>
 </body>
 </html>
