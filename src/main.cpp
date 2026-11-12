@@ -112,7 +112,6 @@ void setup() {
   delay(200);
 
   tft.init();
-  tft.setRotation(ROT);
   tft.invertDisplay(INV);
   tft.setSwapBytes(true);
 
@@ -120,7 +119,7 @@ void setup() {
   pinMode(TOUCH_CS, OUTPUT);
   digitalWrite(TOUCH_CS, HIGH);
   ts.begin(touchSPI);
-  ts.setRotation(ROT);
+  applyOrientationByKey(orientationKey); // tft/ts are ready now; see state.cpp
 
   if (!deviceProvisioned) {
     drawSetupScreen();

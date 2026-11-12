@@ -105,6 +105,20 @@ uint16_t COL_ACCENT    = 0x5EFA;
 
 String textColorKey = "standard";
 
+// Screen orientation. "bottom"'s rotationValue/touchFlipX/touchFlipY are a
+// best-effort guess (180 degrees opposite of "top" on this ST7789 panel,
+// per TFT_eSPI's 0-3 rotation values) and have NOT been verified on real
+// "USB on bottom" hardware -- confirm on a physical board and correct the
+// values in applyOrientationByKey() below if the screen or touch mapping
+// comes out wrong.
+String orientationKey = "top";
+
+int rotationValue = 2;
+
+bool touchFlipX = false;
+
+bool touchFlipY = false;
+
 String unitKey = "metric";
  // metric = C/mm, imperial = F/in
 String regionFormatKey = "europe";
@@ -735,6 +749,31 @@ void applyTextColorByKey(const String& key) {
 }
 
 
+// Derives rotationValue/touchFlipX/touchFlipY from orientationKey and
+// applies them to the already-initialized tft/ts hardware. Must only be
+// called after tft.init() and ts.begin() have run -- loadStoredSettings()
+// runs earlier in setup(), before that hardware is ready, so it only sets
+// orientationKey; main.cpp calls this separately once tft/ts are ready, and
+// settings_server.cpp calls it again (hot-apply, no reboot) when the
+// setting is changed.
+void applyOrientationByKey(const String& key) {
+  orientationKey = (key == "bottom") ? "bottom" : "top";
+
+  if (orientationKey == "bottom") {
+    rotationValue = 0;
+    touchFlipX = true;
+    touchFlipY = true;
+  } else {
+    rotationValue = 2;
+    touchFlipX = false;
+    touchFlipY = false;
+  }
+
+  tft.setRotation(rotationValue);
+  ts.setRotation(rotationValue);
+}
+
+
 void loadStoredSettings() {
   prefs.begin("makerpulse", false);
 
@@ -758,6 +797,8 @@ void loadStoredSettings() {
   wifiEnabled      = prefs.getBool("wifiEnabled", true);
   psiRegion        = sanitizePsiRegion(prefs.getString("psiRegion", "central"));
   ltaApiKey        = prefs.getString("ltaKey", "");
+  orientationKey   = prefs.getString("orientation", "top");
+  if (orientationKey != "bottom") orientationKey = "top";
 
   String legacyBusStop = prefs.getString("busStop", "");
   String legacyBusSvc  = prefs.getString("busSvc", "");

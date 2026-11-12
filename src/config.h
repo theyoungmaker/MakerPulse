@@ -18,7 +18,10 @@
 #define TOUCH_CS  33
 #define TOUCH_IRQ 36
 
-const int ROT = 2;
+// ROT, TOUCH_FLIP_X and TOUCH_FLIP_Y used to be fixed here. They are now
+// runtime values (rotationValue, touchFlipX, touchFlipY in state.h) derived
+// from the persisted "orientation" setting -- see applyOrientationByKey()
+// in state.cpp and CONTEXT.md's "Screen orientation" entry.
 
 const bool INV = false;
 
@@ -39,10 +42,6 @@ static const int TOUCH_Y_MAX = 3720;
 
 
 static const bool TOUCH_SWAP_XY = false;
-
-static const bool TOUCH_FLIP_X  = false;
-
-static const bool TOUCH_FLIP_Y  = false;
 
 
 const uint16_t COL_GREEN  = TFT_GREEN;

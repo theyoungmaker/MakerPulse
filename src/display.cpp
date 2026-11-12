@@ -407,8 +407,8 @@ bool readTouchXY(int& sx, int& sy) {
   y = constrain(y, 0, SCREEN_H - 1);
 
   if (TOUCH_SWAP_XY) { int tmp = x; x = y; y = tmp; }
-  if (TOUCH_FLIP_X)  x = (SCREEN_W - 1) - x;
-  if (TOUCH_FLIP_Y)  y = (SCREEN_H - 1) - y;
+  if (touchFlipX)    x = (SCREEN_W - 1) - x;
+  if (touchFlipY)    y = (SCREEN_H - 1) - y;
 
   sx = x;
   sy = y;

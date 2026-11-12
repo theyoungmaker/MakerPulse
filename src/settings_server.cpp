@@ -139,6 +139,8 @@ void handleRoot() {
   String tz     = sanitizeTimezoneKey(prefs.getString("tz", "singapore"));
   String nickname = prefs.getString("nickname", "");
   bool flashMode = prefs.getBool("flashMode", false);
+  String orientation = prefs.getString("orientation", "top");
+  if (orientation != "bottom") orientation = "top";
   String homeSlotKeys[HOME_SLOT_COUNT];
   for (int i = 0; i < HOME_SLOT_COUNT; i++) {
     homeSlotKeys[i] = prefs.getString((String("homeSlot") + String(i)).c_str(), homeWidgetKey(homeWidgetSlots[i]));
@@ -316,6 +318,10 @@ void handleRoot() {
   page += "<div><label class='label'>Time zone</label><select name='tz'>";
   appendTimezoneOptions(page, tz);
   page += "</select></div>";
+  page += "<div><label class='label'>Screen orientation</label><select name='orientation'>";
+  page += "<option value='top'"    + String(orientation=="top"?" selected":"")    + ">USB on top</option>";
+  page += "<option value='bottom'" + String(orientation=="bottom"?" selected":"") + ">USB on bottom</option>";
+  page += "</select><div class='muted' style='margin-top:8px;'>Match this to which edge of your MakerPulse the USB cable comes out of.</div></div>";
   page += "</div>";
   page += "</div>";
   page += "<div class='settings-block'><span class='settings-title'>Timer</span><div class='settings-desc'>Choose the six quick timers shown in the popup menu.</div><div class='timer-slot-grid'>";
@@ -445,6 +451,8 @@ void handleSave() {
 
   String newPsiRegion = server.hasArg("psiRegion") ? server.arg("psiRegion") : psiRegion;
   String newLtaKey    = server.hasArg("ltaKey") ? server.arg("ltaKey") : ltaApiKey;
+  String newOrientation = server.hasArg("orientation") ? server.arg("orientation") : orientationKey;
+  if (newOrientation != "bottom") newOrientation = "top";
 
   BusStopConfig newBusStops[BUS_MAX_STOPS];
   bool busStopCodeChanged[BUS_MAX_STOPS];
@@ -543,6 +551,7 @@ void handleSave() {
   prefs.putBool("flashMode", flashModeEnabled);
   prefs.putString("psiRegion", psiRegion);
   prefs.putString("ltaKey", ltaApiKey);
+  prefs.putString("orientation", newOrientation);
   for (int i = 0; i < BUS_MAX_STOPS; i++) {
     prefs.putString((String("busCode") + String(i)).c_str(), busStops[i].code);
     prefs.putString((String("busLabel") + String(i)).c_str(), busStops[i].label);
@@ -564,6 +573,7 @@ void handleSave() {
   applyThemeByKey(newAccent, newBg);
   applyTextColorByKey(newText);
   applyDeviceTimezoneByKey(timezoneKey);
+  applyOrientationByKey(newOrientation); // hot-applies rotation/touch, no reboot needed
   if (!sleepDimmed && !sleepOff) setBacklight(BL_FULL);
 
   pageDirty = true;

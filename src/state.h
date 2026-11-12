@@ -40,6 +40,16 @@ extern String unitKey;
 extern String regionFormatKey;
 extern String timezoneKey;
 
+// Screen orientation: "top" (default) or "bottom" -- see CONTEXT.md's
+// "Screen orientation" entry. rotationValue/touchFlipX/touchFlipY are
+// derived from orientationKey by applyOrientationByKey(); loadStoredSettings()
+// only sets orientationKey itself (tft/ts aren't initialized yet at that
+// point in setup()) -- main.cpp calls applyOrientationByKey() once the
+// display and touch hardware are ready.
+extern String orientationKey;
+extern int rotationValue;
+extern bool touchFlipX, touchFlipY;
+
 extern String deviceNickname;
 extern HomeWidgetType homeWidgetSlots[];
 extern String cacheHomeSlots[];
@@ -137,6 +147,7 @@ void updateTimerDoneDialogState();
 
 void applyThemeByKey(const String& accentKey, const String& bgKey);
 void applyTextColorByKey(const String& key);
+void applyOrientationByKey(const String& key);
 uint16_t colorFromHex565(const String& hex);
 
 void loadStoredSettings();
