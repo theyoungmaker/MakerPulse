@@ -7,7 +7,7 @@
 #include <Arduino.h>
 #include <TFT_eSPI.h>
 
-#define FIRMWARE_VERSION "1.1.0"
+#define FIRMWARE_VERSION "1.2.0"
 #define SETUP_SITE_URL "theyoungmaker.github.io/MakerPulse"
 
 // The Young Maker brand mark: a maker figure under three Wi-Fi arcs, reused
