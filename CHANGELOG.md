@@ -1,5 +1,14 @@
 # Changelog
 
+## v1.2.1
+
+- Fixed "USB on bottom" screen orientation: touch did not register on the
+  correct control, only on that control's pre-rotation position. Caused by
+  `touchFlipX`/`touchFlipY` being set `true` for `"bottom"` on top of a
+  touch-controller rotation that already performed an equivalent flip,
+  cancelling it back out. Display rotation itself was unaffected. Verified
+  fixed on physical "USB on bottom" hardware.
+
 ## v1.2.0
 
 - Added a "Screen orientation" setting (USB on top / USB on bottom) to the

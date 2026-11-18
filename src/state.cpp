@@ -105,12 +105,18 @@ uint16_t COL_ACCENT    = 0x5EFA;
 
 String textColorKey = "standard";
 
-// Screen orientation. "bottom"'s rotationValue/touchFlipX/touchFlipY are a
-// best-effort guess (180 degrees opposite of "top" on this ST7789 panel,
-// per TFT_eSPI's 0-3 rotation values) and have NOT been verified on real
-// "USB on bottom" hardware -- confirm on a physical board and correct the
-// values in applyOrientationByKey() below if the screen or touch mapping
-// comes out wrong.
+// Screen orientation. "bottom" uses rotationValue 0, the exact 180-degree
+// opposite of "top"'s rotationValue 2 on this ST7789 panel. Both TFT_eSPI
+// and the vendored XPT2046_Touchscreen library define their rotation 0/2
+// as precise mirror images of each other, so touchFlipX/touchFlipY stay
+// false for both orientations -- ts.setRotation() alone keeps touch in
+// sync with the display. (A prior version of this code additionally set
+// touchFlipX/touchFlipY = true for "bottom", stacking a second, redundant
+// 180-degree flip on top of what ts.setRotation(0) already does; that
+// double-flip cancelled back toward "top"-like touch behavior while the
+// display stayed correctly rotated -- symptom: tapping a control did
+// nothing, but tapping the control's pre-rotation position worked. Fixed
+// and verified on physical "USB on bottom" hardware 2026-11-18 (v1.2.1).)
 String orientationKey = "top";
 
 int rotationValue = 2;
@@ -761,8 +767,8 @@ void applyOrientationByKey(const String& key) {
 
   if (orientationKey == "bottom") {
     rotationValue = 0;
-    touchFlipX = true;
-    touchFlipY = true;
+    touchFlipX = false;
+    touchFlipY = false;
   } else {
     rotationValue = 2;
     touchFlipX = false;

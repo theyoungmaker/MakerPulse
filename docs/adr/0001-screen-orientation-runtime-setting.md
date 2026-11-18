@@ -68,7 +68,16 @@ serial protocol.
   `orientationKey`). `TOUCH_SWAP_XY` stayed a compile-time constant in
   `config.h` — it doesn't vary between the two orientations supported here
   (both are 180° apart on the same axis pair), only `TOUCH_FLIP_X/Y` do.
-- The exact `rotationValue`/touch-flip values for "USB on bottom" are a
-  best-effort guess (180° opposite of "USB on top" on this ST7789 panel),
-  not yet verified against real bottom-cable hardware. See the comment
-  above `applyOrientationByKey()` in `src/state.cpp`.
+- The initial `rotationValue`/touch-flip values for "USB on bottom" were a
+  best-effort guess, not yet verified against real bottom-cable hardware.
+  First field test (2026-11-18) found the display rotated correctly but
+  touch did not register on the physically-correct tab, only on that tab's
+  pre-rotation position — caused by `touchFlipX`/`touchFlipY` being set
+  `true` for `"bottom"` on top of `ts.setRotation(0)`, which already
+  performs an equivalent 180° remap internally (confirmed by reading the
+  vendored `XPT2046_Touchscreen` library's rotation table, which defines
+  rotation 0 as the exact mirror of rotation 2, matching TFT_eSPI's own
+  0/2 relationship). Fixed by leaving `touchFlipX`/`touchFlipY` `false` for
+  both orientations, same as "top". Verified fixed on physical "USB on
+  bottom" hardware in v1.2.1. See the comment above
+  `applyOrientationByKey()` in `src/state.cpp`.
